@@ -1,14 +1,31 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>
-      Ionic Blank
+      iTasmik 
     </ion-title>
+    <ion-buttons end >
+      <button ion-button (click)="presentPopover($event)"><ion-icon name="more" style="zoom:1.7;"></ion-icon></button>
+  </ion-buttons> 
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content >
+  <ion-card>
+      <ion-list>
+          <ion-list-header>Today</ion-list-header>
+          <ion-item *ngFor="let chat of chats" (click)="viewMessages({chat : chat})">
+            <ion-avatar item-start class="size">
+              <img [src]="chat.imageUrl">
+            </ion-avatar>
+            <h2>{{chat.title}}</h2>
+            <p>{{chat.lastMessage}}</p>
+            <ion-note item-end>{{today | date :'hh:mm a'}}</ion-note>
+            <!--<ion-note item-end>{{today | date :'dd/MM/yyyy'}}</ion-note>-->
+          </ion-item>
+        </ion-list>
+     
+  </ion-card>
+  <ion-fab right bottom>
+    <button ion-fab color="danger" (click)="add()"><ion-icon name="add"></ion-icon></button>
+</ion-fab>
 </ion-content>

@@ -1,0 +1,84 @@
+<!--
+  Generated template for the MessagePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>{{title}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-item color="primary">
+      <ion-icon name="pricetags"></ion-icon>
+      Latest Pin
+    </ion-item>
+    <ion-list-header>Annoucment :</ion-list-header>
+    <ion-row padding>
+      <ion-col>
+        <p>Juz: {{juz}}</p>
+      </ion-col>
+      <ion-col>Surah : {{surah}}</ion-col>
+    </ion-row>
+    <ion-row padding center>
+      Lead by : {{lead}}
+    </ion-row>
+  </ion-card>
+
+  <ion-card>
+    <ion-item color="primary">
+      Chat Room
+    </ion-item>
+    <div *ngFor="let message of messages" class="message-wrapper" on-hold="onMessageHold($event, $index, message)">
+        <div *ngIf="user._id !== message.userId">
+          <img  class="profile-pic left" src="assets/imgs/2.png"  />
+          <!--  wave-->
+          <div class="chat-bubble left slide-left">
+    
+            <div class="message" [innerHTML]="message.text" autolinker>
+            </div>
+    
+            <div class="message-detail">
+              <span  class="bold">{{toUser.username}}</span>,
+             
+            </div>
+    
+          </div>
+        </div>
+    
+        <div *ngIf="user._id === message.userId">
+    
+          <img  class="profile-pic right" src="assets/imgs/1.png"  />
+    
+          <div class="chat-bubble right slide-right">
+    
+            <div class="message" [innerHTML]="message.text" autolinker>
+            </div>
+    
+            <div class="message-detail">
+              <span  class="bold">{{user.username}}</span>,
+              
+            </div>
+    
+          </div>
+    
+        </div>
+    
+        <div class="cf"></div>
+    
+      </div>
+  </ion-card>
+
+</ion-content>
+
+<ion-footer>
+    
+      <ion-item>
+        <ion-input  [(ngModel)]="chatBox" placeholder="Send  a message..."></ion-input>
+        <button ion-button clear (click)="send(chatBox)" item-end><ion-icon class="footer-btn" name="send"></ion-icon></button>
+      </ion-item>
+ 
+  </ion-footer>
