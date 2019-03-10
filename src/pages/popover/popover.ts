@@ -3,6 +3,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CreatePage } from '../create/create';
 import { SelectPage } from '../select/select';
 import { InvitePage } from '../invite/invite';
+import { LoginPage } from '../login/login';
+import { Storage } from '@ionic/storage';
+import { LogoutPage } from '../logout/logout';
 
 /**
  * Generated class for the PopoverPage page.
@@ -23,11 +26,13 @@ import { InvitePage } from '../invite/invite';
     </ion-item>
     <ion-item (click)="invite()">Invite
     </ion-item>
+    <ion-item (click)="logout()">Logout
+    </ion-item>
     `
 })
 export class PopoverPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public storage  : Storage) {
   }
 
   ionViewDidLoad() {
@@ -44,6 +49,10 @@ export class PopoverPage {
 
   invite(){
     this.navCtrl.push(InvitePage)
+  }
+
+  public logout() {
+    this.navCtrl.push(LogoutPage);
   }
 
 }

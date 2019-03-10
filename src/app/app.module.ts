@@ -14,6 +14,8 @@ import { CreatePage } from '../pages/create/create';
 import { SelectPage } from '../pages/select/select';
 import { InvitePage } from '../pages/invite/invite';
 import { LoginPage } from '../pages/login/login';
+import { LogoutPage } from '../pages/logout/logout';
+import { GlobalProvider } from '../providers/global/global';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { LoginPage } from '../pages/login/login';
     CreatePage,
     SelectPage,
     InvitePage,
-    LoginPage
+    LoginPage,
+    LogoutPage
   ],
   imports: [
     BrowserModule,
@@ -41,12 +44,14 @@ import { LoginPage } from '../pages/login/login';
     CreatePage,
     SelectPage,
     InvitePage,
-    LoginPage
+    LoginPage,
+    LogoutPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    GlobalProvider
   ]
 })
 export class AppModule {}

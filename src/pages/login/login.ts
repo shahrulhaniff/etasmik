@@ -4,6 +4,7 @@ import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { HomePage } from '../home/home';
 import { Storage } from '@ionic/storage';
+import { GlobalProvider } from "../../providers/global/global";
 
 @IonicPage()
 @Component({
@@ -16,7 +17,7 @@ export class LoginPage {
   public items    : Array<any> = [];
   public fetch    : any; // fetch one data value only from php server unlike items
   public form     : FormGroup;
-  private baseURI : string  = "http://192.168.43.194/etasmik/";
+  private baseURI : string  = this.global.mysite;
   loading: Loading;
   registerCredentials = { username: '', password: '' };
   createSuccess = false;
@@ -25,6 +26,7 @@ export class LoginPage {
               public navParams: NavParams, 
               public http       : HttpClient,
               private alertCtrl : AlertController,
+              public global: GlobalProvider,
               public fb         : FormBuilder,
               private loadingCtrl: LoadingController,
               public storage : Storage

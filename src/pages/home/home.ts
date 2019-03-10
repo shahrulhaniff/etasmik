@@ -1,9 +1,14 @@
 import { Component } from '@angular/core';
-import { NavController, PopoverController } from 'ionic-angular';
+import { IonicPage, NavController, PopoverController,NavParams } from 'ionic-angular';
 import { MessagePage } from '../message/message';
+import { HttpClient } from '@angular/common/http';
 import { PopoverPage } from '../popover/popover';
 import { CreatePage } from '../create/create';
+import { Storage } from '@ionic/storage';
+import { GlobalProvider } from "../../providers/global/global";
+import 'rxjs/add/operator/map';
 
+@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -11,62 +16,57 @@ import { CreatePage } from '../create/create';
 export class HomePage {
 
   today = Date.now();
+  public items : Array<any> = [];
+  private baseURI : string  = this.global.mysite;
+  public showherba;
 
 
-  chats = [{
-    imageUrl: 'assets/imgs/1.png',
-    title: 'Tadarus I',
-    lastMessage: 'New Checkpoint added!',
-    timestamp: new Date(),
-    juz : "2",
-    surah : "Al-Baqarah (142) - Al-Baqarah(252)",
-    lead : "Azman"
-  },
-  {
-    imageUrl: 'assets/imgs/2.png',
-    title: 'Tadarus II',
-    lastMessage: 'latest activity by Idham',
-    timestamp: new Date(),
-    juz : "11",
-    surah : "Al-Tauba (93) - Hud(5)",
-    lead : "Lukman"
-  },
-  {
-    imageUrl: 'assets/imgs/1.png',
-    title: 'Tadarus III',
-    lastMessage: 'Latest activity by Afiq',
-    timestamp: new Date(),
-    juz : "12",
-    surah : "Hud (6) - Yusuf(52)",
-    lead : "Nor Atiqah"
-  },
-  {
-    imageUrl: 'assets/imgs/1.png',
-    title: 'Tadarus IV',
-    lastMessage: 'New members recruited!',
-    timestamp: new Date(),
-    juz : "16",
-    surah : "Al-Kahfi (75) - Ta-Ha(153)",
-    lead : "Syahid"
-  },
-  {
-    imageUrl: 'assets/imgs/2.png',
-    title: 'Tadarus V',
-    lastMessage: 'All checkpoint finished!',
-    timestamp: new Date(),
-    juz : "30",
-    surah : "Al-Nabaa (1) - Al-Nas(6)",
-    lead : "Tenku"
-  }
-];
 
-  constructor(public navCtrl: NavController, public popoverCtrl: PopoverController) {
+  constructor(public navCtrl: NavController, 
+              public popoverCtrl: PopoverController,
+              public navParams: NavParams,
+              public global: GlobalProvider,
+              public http     : HttpClient,
+              public storage  : Storage ) {
 
   }
+  
+  ionViewWillEnter() : void {
+    this.load(); 
+    console.log('ionViewWillEnter DisplayPage');
+  }
+  load() : void
+  {
+     this.storage.get('user').then((user) => { 
+      let    url : any = this.baseURI+'retrieve.php?id='+user;
+            
+     this.http.get(url).subscribe((data : any) =>
+     {
+        console.dir(data);
+        this.items = data;
+     },
+     (error : any) =>
+     {
+        console.dir(error);
+     });
+     //--------------------------------------------------
+   }); //close storage
+  }
 
-  viewMessages(param :any) {
+  viewMessagesYIE(param :any) {
     this.navCtrl.push(MessagePage, param);
   }
+
+  viewMessages(showherba) {
+    showherba = showherba || '(Nama Group)';
+
+    this.navCtrl.push(MessagePage, {
+      data: showherba
+    });
+  }
+
+
+
   presentPopover(myEvent) {
     let popover = this.popoverCtrl.create(PopoverPage, { });
     popover.present({
@@ -77,6 +77,7 @@ export class HomePage {
   add(){
     this.navCtrl.push(CreatePage)
   }
+
 
 
 }

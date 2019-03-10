@@ -97,7 +97,9 @@ export class MessagePage {
 
 
 
+  hot : any;
   ionViewDidLoad() {
+    this.hot=this.navParams.get("data");
     console.log('ionViewDidLoad MessagePage');
   }
   ionViewWillEnter(): void {

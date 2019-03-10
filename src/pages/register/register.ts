@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { GlobalProvider } from "../../providers/global/global";
 
 
 @IonicPage()
@@ -12,10 +13,12 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 export class RegisterPage {
   createSuccess = false;
   public form     : FormGroup;
-  
-  private baseURI : string  = "http://192.168.43.194/etasmik/";
 
-  constructor(  public navCtrl    : NavController, 
+  private baseURI : string  = this.global.mysite;
+  
+  
+  constructor(  public global: GlobalProvider,
+                public navCtrl    : NavController, 
                 public navParams  : NavParams, 
                 public http       : HttpClient,
                 private alertCtrl : AlertController,
@@ -67,7 +70,7 @@ export class RegisterPage {
         this.showPopup("Success", "Account created.");
       },
       error => {
-        this.showPopup("Fail bosku error", error);
+        this.showPopup("Cant Register", error);
       });
    }
 
@@ -82,6 +85,7 @@ export class RegisterPage {
           handler: data => {
             if (this.createSuccess) {
               this.navCtrl.popToRoot();
+              return false; 
             }
           }
         }

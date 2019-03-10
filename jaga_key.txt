@@ -1,6 +1,9 @@
 0) ionic cordova plugin rm cordova-plugin-console
 //ni kalau remove kena add balik kut, tp ada try tak buat jadi je, sebab tu step 0
 
+
+
+UPDATE VERSION DAH???
 1) ionic cordova build --release android
 //pastu paste apk realese kat luar(dekat key yg kena jaga)
 
@@ -13,7 +16,19 @@
 
 
 
+
+
 *untuk update, ulang step 1,3,4
-PERHATIAN! sEBELUM Update, update version dulu!!
+PERHATIAN! sEBELUM Update, update version dulu!! 
 
 pass: etasmik123
+
+
+
+__________________________________________________________________________________________________________________________________________
+full guide how to publish:
+https://ionicframework.com/docs/v1/guide/publishing.html
+__________________________________________________________________________________________________________________________________________
+how to update:
+https://customersupport.doubledutch.me/hc/en-us/articles/360001395033-Android-How-to-Update-an-App-in-the-Google-Play-Developer-Console
+__________________________________________________________________________________________________________________________________________

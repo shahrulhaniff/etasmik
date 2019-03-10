@@ -13,3 +13,13 @@ height : 200% !important;
 max-width: 50px !important;  //any size
 max-height: 50px !important; //any size 
 }
+
+.group-card {
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  ion-grid {
+    height: 4em;
+  }
+

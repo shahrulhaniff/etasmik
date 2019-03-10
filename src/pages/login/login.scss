@@ -1,7 +1,8 @@
 page-login {
  
     .login-content {
-      background: rgb(113, 36, 201);
+      background: url("../assets/imgs/bg.jpg") no-repeat center center fixed;
+      background-size: cover;
    
       .logo-row {
         padding-top: 50px;
@@ -9,9 +10,10 @@ page-login {
       }
    
       .login-box {
-        background: rgb(113, 36, 201);
+        background: rgba(0, 0, 0, .5);
         padding: 20px 20px 0px 20px;
-        margin-top: 30px;
+        margin-top: 40%;
+        border-radius : 15px; 
       }
    
       ion-row {
