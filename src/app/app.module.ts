@@ -22,6 +22,7 @@ import { ProfilePage } from '../pages/profile/profile';
 import { EditprofilePage } from '../pages/editprofile/editprofile';
 import { ChangepassPage } from '../pages/changepass/changepass';
 import { Listgroup2Page } from '../pages/listgroup2/listgroup2';
+import { Push } from '@ionic-native/push';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,7 @@ import { Listgroup2Page } from '../pages/listgroup2/listgroup2';
   ],
   providers: [
     StatusBar,
-    SplashScreen,
+    SplashScreen,Push,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     GlobalProvider
   ]
