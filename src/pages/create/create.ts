@@ -1,17 +1,11 @@
 import { Component, ViewChild , ElementRef} from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController  } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { GlobalProvider } from "../../providers/global/global";
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { HomePage } from '../home/home';
 import { Storage } from '@ionic/storage';
-
-/**
- * Generated class for the CreatePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { COMMON_DEPRECATED_I18N_PIPES } from '@angular/common/src/pipes/deprecated';
 
 @IonicPage()
 @Component({
@@ -23,8 +17,18 @@ export class CreatePage {
   public form     : FormGroup;
   createSuccess = false;
   private baseURI : string  = this.global.mysite;
+  public items : Array<any> = [];
+  public allPlayers : Array<any> = [];
+  teamPlayers: string[];
 
-  constructor(public navCtrl: NavController, 
+
+  //public ic = ['Lool', 'asd']; // Checkbox list
+
+  checkedItems:boolean[]; // Check which one is ticked (True = Ticked | False = Not ticked)
+  public confirmedItems : Array<any> = []; // Ni untuk PUSH ticked(chosen) values je. Saje untuk test.
+
+
+  constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public global: GlobalProvider,
               public fb         : FormBuilder,
@@ -32,39 +36,119 @@ export class CreatePage {
               public http       : HttpClient,
               public elementRef: ElementRef,
               public storage  : Storage ) {
+                this.checkedItems = new Array(this.ic.length);
                 /* Buat validation */
                 this.form = fb.group({
                   "nama_kumpulan"    : ["", Validators.required],
-                  "surah_terakhir"   : ["", Validators.required]
                });
+               
+               //this.teamPlayers.forEach(ic => this.form.get(cb).setValue(true));
+               //this is COMMENTED, try another way THAT USING NGMODULE BUT NOT FORMCONTROLNAME
   }
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CreatePage');
+    this.load();
   }
+
+  load(){
+    this.storage.get('user').then((user) => {
+    let    url : any = this.baseURI+'E_FriendList.php?id='+user; 
+   console.log('url debug' + url);    
+   this.http.get(url).subscribe((data : any) =>
+   {
+      console.dir(data);
+      this.items = data;
+      this.selectEntry(data); console.log("data mende ",data.length);
+   },
+   (error : any) =>
+   {
+      console.dir(error);
+    });
+  }); //close storage
+  }
+
+  public arraynama: Array<any> = [];
+
+  selectEntry(item: any): void {
+    for (let i = 0; i < this.items.length; i++) {
+    //this.arraynama = item[i].nama;
+    //array_push(this.arraynama , item[i].nama);
+    this.arraynama.push(item[i].ic); //tukar ic
+    }
+    console.log("show nama :",this.arraynama);
+  }
+  public ic = this.arraynama;
 
     
   register() : void
    {
-      console.log('Masuk fungsi register'); 
-      let nama_kumpulan     : string    = this.form.controls["nama_kumpulan"].value,
-      surah_terakhir     : string    = this.form.controls["surah_terakhir"].value;
+    //this.teamPlayers = this.form.controls["cb"].value;
+    console.log('Masuk fungsi register'); 
+
+      //ahli: string[] = this.form.get(item).value;
+
       //if (pwd!=pwd2) { this.showPopup("Nope", "Check your password."); }else { this.createGroup(nama_kumpulan, surah_terakhir);  } 
-      this.createGroup(nama_kumpulan, surah_terakhir);
-      console.log('nama_kumpulan-->', nama_kumpulan , 'surah_terakhir-->', surah_terakhir); //undefine bosku
+
+    //################################################
+    //#######################   ######################
+    //#####################   ########################
+    //##################   ###########################
+    //#####  ########   ##############################
+    //#######  ####   ################################
+    //########     ###################################
+    //################################################
+    //minsa minsa checkbox minsa
+    this.confirmedItems = [];
+
+    for(let z = 0; z <= this.ic.length; z++){
+
+      //It will check which value is ticked on the checkbox. Kalau ticked, dia akan PUSH value tu ke dalam variable confirmedItems. 
+      //So, boleh buat query SQL INSERT sini je.
+      if(this.checkedItems[z]==true){
+        this.confirmedItems.push(this.ic[z]);
+      }
+
+    }
+
+    
+    let nama_kumpulan     : string    = this.form.controls["nama_kumpulan"].value,
+    ahli     : string[]    = this.confirmedItems; //shahrul!
+
+    //Yang ni untuk test je keluar alert nak cek value.
+    /* let alert = this.alertCtrl.create({
+      title: 'SUCCESS',
+      subTitle: ''+this.confirmedItems,
+      buttons: ['OK']
+    });
+    alert.present(); */
+    //minsa minsa checkbox minsa    
+    //################################################
+    //#######   ######   #############################
+    //#######   ######   #############################
+    //#######            #############################
+    //#######   ######   #############################
+    //#######   ######   #############################
+    //#######   ######   #############################
+    //################################################
+
+
+      this.createGroup(nama_kumpulan,ahli);
+      console.log('nama_kumpulan-->', nama_kumpulan ); //undefine bosku
    }
    
-   createGroup(nama_kumpulan : string, surah_terakhir : string) : void
+   createGroup(nama_kumpulan : string, ahli : string[]) : void
    {
-    this.storage.get('user').then((user) => { 
+     console.log("siapa ahli",ahli);
+    this.storage.get('user').then((user) => {
       let headers 	: any		= new HttpHeaders({ 'Content-Type': 'application/json' }),
-          options 	: any		= {"ic_pengguna" : user, "nama_kumpulan" : nama_kumpulan, "surah_terakhir" : surah_terakhir },
-          url       : any   = this.baseURI + "createGroup.php";
+          options 	: any		= {"ic_pengguna" : user, "nama_kumpulan" : nama_kumpulan,  "ahli" : ahli },
+          url       : any   = this.baseURI + "D_createGroup.php";
 
       this.http.post(url, JSON.stringify(options), headers)
       .subscribe((record : any) =>
       {
-         // If the request was successful notify the user
         this.createSuccess = true;
         this.showPopup("Success", "Group created.");
       },
@@ -94,16 +178,19 @@ export class CreatePage {
           text: 'OK',
           handler: data => {
             if (this.createSuccess) { 
-              this.navCtrl.setRoot(HomePage);
-              //this.navCtrl.popToRoot();
-              //alert.dismiss(); 
+              //this.navCtrl.setRoot(HomePage);
+              //alert.dismiss().then(()=>{this.navCtrl.setRoot(HomePage);})
+              alert.dismiss(); 
+              this.navCtrl.popToRoot();
               return false; 
             }
           }
         }
       ]
     });
-    alert.present();
+    alert.present(); 
   }
+
+  
 
 }

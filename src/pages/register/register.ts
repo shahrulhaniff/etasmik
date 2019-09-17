@@ -59,8 +59,8 @@ export class RegisterPage {
    createUser(usr : string, name : string, phone : string, pwd : string) : void
    {
       let headers 	: any		= new HttpHeaders({ 'Content-Type': 'application/json' }),
-          options 	: any		= { "key" : "create", "usr" : usr, "name" : name, "phone" : phone, "pwd" : pwd },
-          url       : any   = this.baseURI + "createEntry.php";
+          options 	: any		= { "usr" : usr, "nama" : name, "phone" : phone, "pwd" : pwd },
+          url       : any   = this.baseURI + "B_Register.php";
 
       this.http.post(url, JSON.stringify(options), headers)
       .subscribe((record : any) =>
@@ -84,6 +84,7 @@ export class RegisterPage {
           text: 'OK',
           handler: data => {
             if (this.createSuccess) {
+              alert.dismiss(); 
               this.navCtrl.popToRoot();
               return false; 
             }

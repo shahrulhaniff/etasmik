@@ -6,27 +6,98 @@
 -->
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>{{hot}}</ion-title>
+    <ion-title>{{nama_kumpulan}}</ion-title>
+    
+    <ion-buttons end class="pads">
+      <button ion-button icon-only color="light" (click)="leaveGroup()">
+       Exit Class <ion-icon name="exit"></ion-icon>
+      </button>
+    </ion-buttons>
+
   </ion-navbar>
 </ion-header>
 
 <ion-content>
+  <div *ngIf="!buttonClicked">
   <ion-card>
     <ion-item color="primary">
       <ion-icon name="pricetags"></ion-icon>
       Latest Pin
+
+      <div item-end color="light" (click)="onButtonClick()">
+       Edit <ion-icon name="create"></ion-icon>
+      </div>
     </ion-item>
-    <ion-list-header>Annoucment :</ion-list-header>
-    <ion-row padding>
-      <ion-col>
-        <p>Juz: {{juz}}</p>
-      </ion-col>
-      <ion-col>Surah : {{surah}}</ion-col>
+
+    <ion-grid padding>
+    <ion-row>
+        <ion-col col-12><b>Announcement</b><br>
+          {{anc}}</ion-col>
     </ion-row>
-    <ion-row padding center>
-      Lead by : {{lead}}
+    <ion-row>
+        <ion-col col-6><b>Surah</b></ion-col><ion-col col-6>:<button class="small">{{surah}}</button></ion-col>
     </ion-row>
+    <ion-row>
+        <ion-col col-6><b>Juz - Last Kalimah</b></ion-col><ion-col col-6>:<button class="small">{{juz}}</button></ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col col-12><b>Lead by</b><br>{{namalead}}</ion-col>
+    </ion-row>
+  </ion-grid>
+   
   </ion-card>
+  </div>
+
+  <!-- #######################################  -->
+  <!-- #######################################  -->
+  
+  
+  <div *ngIf="!buttonClicked2">
+        <!-- <form [formGroup]="form" (ngSubmit)="register()" #registerForm="ngForm"> -->
+
+            <ion-card class="card3">
+                <div>
+                    <ion-item color="danger">
+                        <ion-icon name="pricetags"></ion-icon>
+                        Edit Pin
+                  
+                        <div item-end color="light" (click)="onButtonClick()">
+                         Cancel <ion-icon name="ios-undo"></ion-icon>
+                        </div>
+                      </ion-item>
+                  <ion-item>
+                    <ion-label floating>
+                      <h4 color="primary">Announcement:</h4>
+                    </ion-label>
+                    <ion-input required type="text" name="anc" [(ngModel)]="anc" value="{{anc}}"></ion-input>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label floating>
+                      <h4 color="primary">Surah:</h4>
+                    </ion-label>
+                    <ion-input required type="text" name="surah" [(ngModel)]="surah" value="{{surah}}"></ion-input>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label floating>
+                      <h4 color="primary">Juz - Last Kalimah:</h4>
+                    </ion-label>
+                    <ion-input required type="text" name="juz" [(ngModel)]="juz" value="{{juz}}"></ion-input>
+                  </ion-item>
+                  <button ion-button block (click)="editPin()" color="danger">Update Pin</button>
+                 
+                </div>
+                
+              </ion-card>
+
+      <!-- </form> -->
+      <!-- </ion-card> -->
+      </div>
+
+
+  <!-- #######################################  -->
+  <!-- #######################################  -->
+
+
 
   <ion-card>
     <ion-item color="primary">

@@ -1,6 +1,13 @@
-<ion-header>
+<!--<ion-header>
   <ion-navbar color="theme">
-    <ion-title>
+
+      <ion-buttons class="pads">
+          <button ion-button icon-only color="light" (click)="navtohome()">
+            <ion-icon name="home"></ion-icon>
+          </button>
+        </ion-buttons>
+
+    <ion-title text-center>
       e-Tasmik 
     </ion-title>
     <ion-buttons end >
@@ -8,38 +15,50 @@
   </ion-buttons> 
   </ion-navbar>
 </ion-header>
+-->
+<ion-header>
+    <ion-navbar color="theme">
+      <ion-title>
+      e-Tasmik
+    </ion-title>
+      <button ion-button menuToggle>
+          <ion-icon name="menu" color="light"></ion-icon>
+        </button>
+  </ion-navbar>
+</ion-header>
 
-<ion-content >
-<!--
-    <ion-card class="group-card" (click)="viewMessages({items : nama_kumpulan})">
-        <ion-item text-wrap>
-       <ion-avatar item-start class="size">
-        <img src="assets/imgs/2.png">
-      </ion-avatar> 
-      <h2>Nama Kumpulan</h2>
-      <p>Surah</p>
-      <ion-note item-end>Date</ion-note>
-      <ion-note item-end>date</ion-note>
-    </ion-item>
-    </ion-card> -->
+<ion-content class="bg" padding>
+  <!-- <ion-img width="100%" height=135px src="assets/imgs/profile.png" (click)="toProfile()"></ion-img>
+   <br>
+   <ion-img width="100%" height=135px src="assets/imgs/faq.png" (click)="toFAQ()"></ion-img>
+   <br>
+   <ion-img width="100%" height=135px src="assets/imgs/baby.png" (click)="toBabydata()"></ion-img>
+   <br>
+   <ion-img width="100%" height=135px src="assets/imgs/forum.png" (click)="toForum()"></ion-img>
+-->
 
+<ion-grid style="height: 100%">
+  <ion-row justify-content-center align-items-center style="height: 100%">
+    <div class="pins">
 
-          
-          <ion-list *ngFor="let item of items" (click)="viewMessages(shownama_kumpulan)">
-          <ion-card class="group-card">
-              <ion-item text-wrap>
-             <ion-avatar item-start class="size">
-              <img src="assets/imgs/1.png">
-            </ion-avatar> 
-            <h2>{{item.nama_kumpulan}}</h2>
-            <p>{{item.surah_terakhir}}</p>
-            <ion-note item-end>{{today | date :'hh:mm a'}}</ion-note>
-            <ion-note item-end>{{today | date :'dd/MM/yyyy'}}</ion-note>
-          </ion-item>
-          </ion-card>
-          </ion-list>
+        <ion-card class="pin">
+          <img src="../assets/imgs/profile.png" (click)="toProfile()"/>
+        </ion-card >
 
- <!-- <ion-fab right bottom>
-    <button ion-fab color="danger" (click)="add()"><ion-icon name="add"></ion-icon></button>
-</ion-fab> -->
+        <ion-card class="pin">
+          <img src="../assets/imgs/creategroup.png" (click)="create()"/>
+        </ion-card >
+        
+        <ion-card class="pin">
+            <img src="../assets/imgs/mygroup.png" (click)="toListGroup()"/>
+          </ion-card >
+
+        <ion-card class="pin">
+          <img src="../assets/imgs/joingroup.png" (click)="toListGroup2()"/>
+        </ion-card >
+    </div>
+  </ion-row>
+</ion-grid>
+   
+
 </ion-content>

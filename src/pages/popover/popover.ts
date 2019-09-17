@@ -12,6 +12,14 @@ import { LogoutPage } from '../logout/logout';
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
+ * 
+ <ion-item (click)="create()">Create new group    
+    </ion-item>
+    <ion-item (click)="join()">Join
+    </ion-item>
+    <ion-item (click)="invite()">Invite
+    </ion-item>
+ * 
  */
 
 @IonicPage()
@@ -20,12 +28,7 @@ import { LogoutPage } from '../logout/logout';
   templateUrl: 'popover.html',
 
   template: `
-    <ion-item (click)="create()">Create new group    
-    </ion-item>
-    <ion-item (click)="join()">Join
-    </ion-item>
-    <ion-item (click)="invite()">Invite
-    </ion-item>
+    
     <ion-item (click)="logout()">Logout
     </ion-item>
     `

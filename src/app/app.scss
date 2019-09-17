@@ -16,4 +16,26 @@
 // automatically applied to the <body> element in the app.
 .toolbar-background {
     // Your gradient stuff here
+}
+    .bg4{
+      background: url("../assets/imgs/menubg.png") no-repeat center center fixed;
+      background-repeat: no-repeat;
+       background-size: cover;
+    }
+    
+    ion-header ion-icon.back-button-icon.icon {
+      color: map-get($colors, light);}
+  
+    ion-header ion-navbar ion-icon.menuToggle-icon.icon {
+      color: map-get($colors, dark);
   }
+
+  ion-content.menu{	
+    ion-list {
+      .item {
+        background: transparent;
+      }
+    }
+  }
+  
+  $bar-stable-text: #222;
