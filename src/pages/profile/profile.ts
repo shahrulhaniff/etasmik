@@ -6,7 +6,7 @@ import { Storage } from '@ionic/storage';
 import { EditprofilePage } from '../editprofile/editprofile';
 import { ChangepassPage } from '../changepass/changepass';
 import { HomePage } from '../home/home';
-import { Push, PushObject, PushOptions } from '@ionic-native/push';
+//import { Push, PushObject, PushOptions } from '@ionic-native/push';
 
 @IonicPage()
 @Component({
@@ -22,7 +22,7 @@ export class ProfilePage {
               public navParams: NavParams,
               public http     : HttpClient,
               public global: GlobalProvider,
-              private push: Push,
+              //private push: Push,
               public storage  : Storage) {
   }
 
@@ -63,7 +63,7 @@ export class ProfilePage {
     this.navCtrl.setRoot(HomePage);
   }
 
-  //*
+  /*
   //start push coding
   // to check if we have permission
   cekpermission(){
